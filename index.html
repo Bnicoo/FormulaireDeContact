@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Demande de rappel - Télécom & Énergie</title>
+  <meta
+    name="description"
+    content="Laissez vos coordonnées pour être recontacté rapidement concernant une offre télécom, énergie ou les deux."
+  />
+  <style>
+    :root {
+      --bg: #f4f7fb;
+      --card: #ffffff;
+      --text: #1f2937;
+      --muted: #6b7280;
+      --primary: #1d4ed8;
+      --primary-dark: #1e40af;
+      --accent: #dbeafe;
+      --border: #d1d5db;
+      --success: #166534;
+      --danger: #b91c1c;
+      --shadow: 0 18px 45px rgba(0, 0, 0, 0.08);
+      --radius: 18px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: linear-gradient(180deg, #eef4ff 0%, var(--bg) 100%);
+      color: var(--text);
+    }
+
+    a {
+      color: var(--primary);
+      text-decoration: none;
+    }
+
+    .hero {
+      background: linear-gradient(135deg, #0f172a 0%, #1d4ed8 100%);
+      color: white;
+      padding: 70px 20px 110px;
+      text-align: center;
+    }
+
+    .hero-content {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .badge {
+      display: inline-block;
+      background: rgba(255, 255, 255, 0.14);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      padding: 10px 16px;
+      border-radius: 999px;
+      font-size: 0.92rem;
+      margin-bottom: 18px;
+    }
+
+    .hero h1 {
+      margin: 0 0 16px;
+      font-size: 2.6rem;
+      line-height: 1.15;
+    }
+
+    .hero p {
+      margin: 0 auto 28px;
+      max-width: 720px;
+      font-size: 1.08rem;
+      line-height: 1.6;
+      color: rgba(255, 255, 255, 0.92);
+    }
+
+    .hero-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 14px 22px;
+      border-radius: 12px;
+      font-weight: bold;
+      transition: 0.2s ease;
+    }
+
+    .btn-primary {
+      background: white;
+      color: #0f172a;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      background: #f8fafc;
+    }
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.12);
+      color: white;
+      border: 1px solid rgba(255, 255, 255, 0.22);
+    }
+
+    .btn-secondary:hover {
+      transform: translateY(-1px);
+      background: rgba(255, 255, 255, 0.18);
+    }
+
+    .wrapper {
+      max-width: 1100px;
+      margin: -55px auto 50px;
+      padding: 0 20px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1.1fr;
+      gap: 24px;
+      align-items: start;
+    }
+
+    .card {
+      background: var(--card);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 28px;
+    }
+
+    .info-card h2,
+    .form-card h2 {
+      margin-top: 0;
+      margin-bottom: 10px;
+      font-size: 1.6rem;
+    }
+
+    .subtext {
+      color: var(--muted);
+      line-height: 1.6;
+      margin-bottom: 24px;
+    }
+
+    .benefits {
+      display: grid;
+      gap: 14px;
+      margin-bottom: 24px;
+    }
+
+    .benefit {
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+      background: #f8fbff;
+      border: 1px solid #e5eefc;
+      border-radius: 14px;
+      padding: 14px;
+    }
+
+    .benefit-icon {
+      width: 42px;
+      height: 42px;
+      min-width: 42px;
+      border-radius: 12px;
+      background: var(--accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+    }
+
+    .benefit strong {
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .small-note {
+      margin-top: 16px;
+      font-size: 0.95rem;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    form {
+      display: grid;
+      gap: 18px;
+    }
+
+    .row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+    }
+
+    label {
+      font-weight: bold;
+      font-size: 0.95rem;
+    }
+
+    .required {
+      color: var(--danger);
+    }
+
+    input,
+    select,
+    textarea {
+      width: 100%;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 14px 14px;
+      font-size: 1rem;
+      outline: none;
+      background: white;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 4px rgba(29, 78, 216, 0.10);
+    }
+
+    textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    .checkbox-wrap {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      background: #f9fafb;
+      border: 1px solid #e5e7eb;
+      border-radius: 14px;
+      padding: 14px;
+    }
+
+    .checkbox-wrap input[type="checkbox"] {
+      width: auto;
+      margin-top: 3px;
+      transform: scale(1.1);
+    }
+
+    .checkbox-wrap label {
+      font-weight: normal;
+      line-height: 1.5;
+      color: var(--text);
+    }
+
+    .submit-btn {
+      border: none;
+      background: var(--primary);
+      color: white;
+      font-weight: bold;
+      font-size: 1rem;
+      padding: 16px 20px;
+      border-radius: 14px;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+
+    .submit-btn:hover {
+      background: var(--primary-dark);
+      transform: translateY(-1px);
+    }
+
+    .helper {
+      font-size: 0.9rem;
+      color: var(--muted);
+      margin-top: -6px;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    .footer {
+      max-width: 1100px;
+      margin: 0 auto 60px;
+      padding: 0 20px;
+    }
+
+    .footer-card {
+      background: white;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 24px;
+    }
+
+    .footer-card h3 {
+      margin-top: 0;
+      margin-bottom: 10px;
+    }
+
+    .footer-card p {
+      color: var(--muted);
+      line-height: 1.7;
+      margin: 8px 0;
+    }
+
+    .status {
+      display: none;
+      border-radius: 12px;
+      padding: 14px 16px;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .status.success {
+      display: block;
+      background: #dcfce7;
+      color: var(--success);
+      border: 1px solid #bbf7d0;
+    }
+
+    .status.error {
+      display: block;
+      background: #fee2e2;
+      color: var(--danger);
+      border: 1px solid #fecaca;
+    }
+
+    @media (max-width: 900px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        padding: 56px 20px 95px;
+      }
+
+      .hero h1 {
+        font-size: 2.1rem;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .row {
+        grid-template-columns: 1fr;
+      }
+
+      .card {
+        padding: 22px;
+      }
+
+      .hero h1 {
+        font-size: 1.8rem;
+      }
+
+      .hero p {
+        font-size: 1rem;
+      }
+
+      .btn {
+        width: 100%;
+        text-align: center;
+      }
+
+      .hero-buttons {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <div class="hero-content">
+      <div class="badge">Télécom • Énergie • Demande de rappel</div>
+      <h1>Demandez à être recontacté rapidement</h1>
+      <p>
+        Laissez vos coordonnées pour recevoir un rappel concernant une offre
+        télécom, énergie, ou les deux. Réponse rapide, sans engagement.
+      </p>
+      <div class="hero-buttons">
+        <a href="#formulaire" class="btn btn-primary">Remplir le formulaire</a>
+        <a href="#infos" class="btn btn-secondary">En savoir plus</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrapper">
+    <section class="grid">
+      <div class="card info-card" id="infos">
+        <h2>Pourquoi remplir ce formulaire ?</h2>
+        <p class="subtext">
+          En quelques secondes, la personne peut laisser ses coordonnées et
+          préciser sa situation actuelle afin d’être recontactée avec une
+          proposition plus adaptée.
+        </p>
+
+        <div class="benefits">
+          <div class="benefit">
+            <div class="benefit-icon">⚡</div>
+            <div>
+              <strong>Rapide</strong>
+              <span>Le formulaire est simple et va droit au but.</span>
+            </div>
+          </div>
+
+          <div class="benefit">
+            <div class="benefit-icon">📞</div>
+            <div>
+              <strong>Rappel personnalisé</strong>
+              <span>Les informations collectées aident à mieux orienter le contact.</span>
+            </div>
+          </div>
+
+          <div class="benefit">
+            <div class="benefit-icon">🔒</div>
+            <div>
+              <strong>Données traitées avec transparence</strong>
+              <span>La personne sait pourquoi elle laisse ses informations.</span>
+            </div>
+          </div>
+        </div>
+
+        <p class="small-note">
+          Conseil : branche ce formulaire à Formspree pour recevoir les demandes
+          directement par email. Tu peux ensuite publier ce fichier sur GitHub Pages.
+        </p>
+      </div>
+
+      <div class="card form-card" id="formulaire">
+        <h2>Formulaire de contact</h2>
+        <p class="subtext">
+          Remplissez les informations ci-dessous pour être recontacté(e).
+        </p>
+
+        <div id="formStatus" class="status"></div>
+
+        <form
+          id="leadForm"
+          action="https://formspree.io/f/xvzvywaj"
+          method="POST"
+        >
+          <div class="row">
+            <div class="field">
+              <label for="prenom">Prénom <span class="required">*</span></label>
+              <input type="text" id="prenom" name="prenom" required />
+            </div>
+
+            <div class="field">
+              <label for="nom">Nom <span class="required">*</span></label>
+              <input type="text" id="nom" name="nom" required />
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="field">
+              <label for="telephone">Téléphone <span class="required">*</span></label>
+              <input type="tel" id="telephone" name="telephone" required />
+            </div>
+
+            <div class="field">
+              <label for="email">Email <span class="required">*</span></label>
+              <input type="email" id="email" name="email" required />
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="field">
+              <label for="codepostal">Code postal</label>
+              <input type="text" id="codepostal" name="codepostal" />
+            </div>
+
+            <div class="field">
+              <label for="interet">Je suis intéressé par <span class="required">*</span></label>
+              <select id="interet" name="interet" required>
+                <option value="">-- Sélectionner --</option>
+                <option value="telecom">Télécom</option>
+                <option value="energie">Énergie</option>
+                <option value="les-deux">Les deux</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- BLOC TELECOM -->
+          <div id="blocTelecom" class="hidden">
+            <div class="field">
+              <label for="operateur_telecom">Opérateur télécom actuel</label>
+              <select id="operateur_telecom" name="operateur_telecom">
+                <option value="">-- Sélectionner --</option>
+                <option value="Proximus">Proximus</option>
+                <option value="Orange">Orange</option>
+                <option value="Telenet">Telenet</option>
+                <option value="BASE">BASE</option>
+                <option value="Scarlet">Scarlet</option>
+                <option value="Mobile Vikings">Mobile Vikings</option>
+                <option value="VOO">VOO</option>
+                <option value="hey!">hey!</option>
+                <option value="edpnet">edpnet</option>
+                <option value="DIGI">DIGI</option>
+                <option value="Autre">Autre</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- BLOC ENERGIE -->
+          <div id="blocEnergie" class="hidden">
+            <div class="row">
+              <div class="field">
+                <label for="region">Région</label>
+                <select id="region" name="region">
+                  <option value="">-- Sélectionner --</option>
+                  <option value="Bruxelles">Bruxelles</option>
+                  <option value="Wallonie">Wallonie</option>
+                  <option value="Flandre">Flandre</option>
+                </select>
+              </div>
+
+              <div class="field">
+                <label for="fournisseur_energie">Fournisseur énergie actuel</label>
+                <select id="fournisseur_energie" name="fournisseur_energie">
+                  <option value="">-- Sélectionner --</option>
+                  <option value="Engie">Engie</option>
+                  <option value="Luminus">Luminus</option>
+                  <option value="TotalEnergies">TotalEnergies</option>
+                  <option value="Eneco">Eneco</option>
+                  <option value="Mega">Mega</option>
+                  <option value="Octa+">Octa+</option>
+                  <option value="DATS 24">DATS 24</option>
+                  <option value="Energie.be">Energie.be</option>
+                  <option value="EnergyVision">EnergyVision</option>
+                  <option value="Autre">Autre</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="message">Message</label>
+            <textarea
+              id="message"
+              name="message"
+              placeholder="Exemple : je souhaite être recontacté pour comparer mon abonnement actuel."
+            ></textarea>
+          </div>
+
+          <!-- Champs cachés utiles -->
+          <input type="hidden" name="_subject" value="Nouvelle demande de rappel - Télécom / Énergie" />
+          <input type="hidden" name="_language" value="fr" />
+
+          <div class="checkbox-wrap">
+            <input type="checkbox" id="consentement" name="consentement" required />
+            <label for="consentement">
+              J’accepte que mes données soient utilisées afin d’être recontacté(e)
+              concernant une offre télécom et/ou énergie. <span class="required">*</span>
+            </label>
+          </div>
+
+          <div class="helper">
+            Les champs marqués d’un * sont obligatoires.
+          </div>
+
+          <button type="submit" class="submit-btn">Être recontacté(e)</button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-card">
+      <h3>Protection des données</h3>
+      <p>
+        Les informations transmises via ce formulaire servent uniquement à recontacter
+        la personne dans le cadre de sa demande.
+      </p>
+      <p>
+        Ajoute ici ton nom, ton entreprise, ton email de contact, ainsi qu’une phrase
+        expliquant comment demander la modification ou la suppression des données.
+      </p>
+      <p>
+        Exemple : <strong>Responsable du traitement :</strong> Ton Nom / Nom de ton activité —
+        <strong>Contact :</strong> tonadresse@email.com
+      </p>
+    </div>
+  </footer>
+
+  <script>
+    const interet = document.getElementById("interet");
+    const blocTelecom = document.getElementById("blocTelecom");
+    const blocEnergie = document.getElementById("blocEnergie");
+
+    const operateurTelecom = document.getElementById("operateur_telecom");
+    const region = document.getElementById("region");
+    const fournisseurEnergie = document.getElementById("fournisseur_energie");
+
+    const form = document.getElementById("leadForm");
+    const formStatus = document.getElementById("formStatus");
+
+    function updateFields() {
+      const value = interet.value;
+
+      const showTelecom = value === "telecom" || value === "les-deux";
+      const showEnergie = value === "energie" || value === "les-deux";
+
+      blocTelecom.classList.toggle("hidden", !showTelecom);
+      blocEnergie.classList.toggle("hidden", !showEnergie);
+
+      // Rend les champs requis seulement s'ils sont visibles
+      operateurTelecom.required = showTelecom;
+      region.required = showEnergie;
+      fournisseurEnergie.required = showEnergie;
+
+      // Nettoie les champs masqués
+      if (!showTelecom) {
+        operateurTelecom.value = "";
+      }
+
+      if (!showEnergie) {
+        region.value = "";
+        fournisseurEnergie.value = "";
+      }
+    }
+
+    interet.addEventListener("change", updateFields);
+    updateFields();
+
+    // Soumission AJAX pour éviter la redirection brutale
+    form.addEventListener("submit", async function (e) {
+      e.preventDefault();
+
+      formStatus.className = "status";
+      formStatus.textContent = "";
+
+      try {
+        const data = new FormData(form);
+
+        const response = await fetch(form.action, {
+          method: form.method,
+          body: data,
+          headers: {
+            Accept: "application/json"
+          }
+        });
+
+        if (response.ok) {
+          formStatus.className = "status success";
+          formStatus.textContent =
+            "Merci, votre demande a bien été envoyée. Vous serez recontacté(e) prochainement.";
+          form.reset();
+          updateFields();
+          form.scrollIntoView({ behavior: "smooth", block: "start" });
+        } else {
+          formStatus.className = "status error";
+          formStatus.textContent =
+            "Une erreur est survenue lors de l’envoi. Vérifiez la configuration du formulaire puis réessayez.";
+        }
+      } catch (error) {
+        formStatus.className = "status error";
+        formStatus.textContent =
+          "Impossible d’envoyer le formulaire pour le moment. Réessayez plus tard.";
+      }
+    });
+  </script>
+</body>
+</html>
